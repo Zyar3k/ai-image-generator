@@ -17,9 +17,12 @@ cloudinary.config({
 router.route("/").get(async (req, res) => {
   try {
     const posts = await Post.find({});
-    res.send(200).json({ success: success, data: posts });
+    res.status(200).json({ success: true, data: posts });
   } catch (error) {
-    res.send(500).json({ success: false, message: error });
+    res.status(500).json({
+      success: false,
+      message: "Fetching posts failed, please try again",
+    });
   }
 });
 
@@ -36,7 +39,7 @@ router.route("/").post(async (req, res) => {
 
     res.status(201).json({ success: true, data: newPost });
   } catch (error) {
-    res.send(500).json({ success: false, message: error });
+    res.status(500).json({ success: false, message: error });
   }
 });
 
